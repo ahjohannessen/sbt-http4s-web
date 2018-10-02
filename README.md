@@ -1,5 +1,6 @@
+[![License](https://img.shields.io/github/license/DavidGregory084/sbt-tpolecat.svg)](https://opensource.org/licenses/Apache-2.0)
 [ ![Download](https://api.bintray.com/packages/ahjohannessen/sbt-plugins/sbt-http4s-web/images/download.svg) ](https://bintray.com/ahjohannessen/sbt-plugins/sbt-http4s-web/_latestVersion)
-# sbt-http4s-web
+## sbt-http4s-web
 
 sbt plugin that makes it less convoluted to use [sbt-web](https://github.com/sbt/sbt-web) and [http4s](https://http4s.org) together. 
 It makes it such that assets are placed in paths that http4s is able to locate out of the box during development and production.
