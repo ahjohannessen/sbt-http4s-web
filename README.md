@@ -12,7 +12,9 @@ and `Compile / packageBin / mappings`.
 
 Add the following to your project's project/plugins.sbt:
 ```
-addSbtPlugin("com.github.ahjohannessen" % "sbt-http4s-web" % "x.y.z") // use version from bintray badge above.
+// replace x.y.z with value from version badge above.
+
+addSbtPlugin("com.github.ahjohannessen" % "sbt-http4s-web" % "x.y.z")
 ```
 and enable the plugin in your project's build:
 ```
