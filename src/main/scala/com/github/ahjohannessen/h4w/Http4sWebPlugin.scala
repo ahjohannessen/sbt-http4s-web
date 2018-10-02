@@ -18,13 +18,11 @@ object Http4sWebPlugin extends AutoPlugin {
 
   import autoImport._
 
-  override lazy val globalSettings = Seq(
+  override lazy val projectSettings: Seq[Setting[_]] = Seq(
+
     http4sWebAssetsDevTarget       := target.value / "h4w",
     http4sWebAssetsBaseDirName     := "public",
     http4sWebExcludeWebJarMappings := true,
-  )
-
-  override lazy val projectSettings: Seq[Setting[_]] = Seq(
 
     packagePrefix in Assets := s"${http4sWebAssetsBaseDirName.value}/",
     managedClasspath in Runtime += (packageBin in Assets).value,
