@@ -3,7 +3,7 @@
 name := "sbt-http4s-web"
 description := "sbt-web for http4s"
 organization := "com.github.ahjohannessen"
-version := "0.0.2"
+version := "0.0.3"
 sbtPlugin := true
 
 // Dependencies

@@ -27,22 +27,18 @@ object Http4sWebPlugin extends AutoPlugin {
     packagePrefix in Assets := s"${http4sWebAssetsBaseDirName.value}/",
     managedClasspath in Runtime += (packageBin in Assets).value,
 
-    internalDependencyClasspath in Runtime += http4sWebAssetsDevTarget.value,
-    internalDependencyClasspath in Runtime := (internalDependencyClasspath in Runtime).dependsOn(copyTask).value,
+    internalDependencyClasspath in Runtime ++= Seq(http4sWebAssetsDevTarget.value),
+    internalDependencyClasspath in Runtime := (internalDependencyClasspath in Runtime).dependsOn(Def.task {
+      IO.copy((mappings in Assets).value.map {
+        case (f, p) ⇒ f -> (http4sWebAssetsDevTarget.value / http4sWebAssetsBaseDirName.value / p)
+      })
+    }).value,
 
     mappings in (Compile, packageBin) := (mappings in (Compile, packageBin)).value.filterNot {
       case (_, dest) ⇒ http4sWebExcludeWebJarMappings.value && dest.contains(WEBJARS_PATH_PREFIX)
     }
 
   )
-
-  ///
-
-  private lazy val copyTask = Def.task {
-    IO.copy((mappings in Assets).value.map {
-      case (f, p) ⇒ f -> (http4sWebAssetsDevTarget.value / http4sWebAssetsBaseDirName.value / p)
-    })
-  }
 
 }
 
