@@ -12,7 +12,6 @@ and `Compile / packageBin / mappings`.
 
 Add the following to your project's project/plugins.sbt:
 ```
-resolvers += Resolver.bintrayIvyRepo("ahjohannessen", "sbt-plugins")
 addSbtPlugin("com.github.ahjohannessen" % "sbt-http4s-web" % "0.0.1")
 ```
 and enable the plugin in your project's build:
