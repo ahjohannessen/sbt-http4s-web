@@ -52,7 +52,7 @@ http4sWebExcludeWebJarMappings := true
 * Prevent `packageBin in Assets` from being evaluated and added to `managedClasspath in Runtime`.
 * 
 * It might be useful to prevent this in an IDE context that depends on evaluating 
-* `managedClasspath in Runtime` in order to build a project model from a sbt build.
+* `managedClasspath in Runtime` in order to build a project model from an sbt build.
 *
 * Default setting is to prevent evaluating `Assets / packageBin` when detecting
 * Intellij IDEA has started the sbt instance.
