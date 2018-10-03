@@ -23,16 +23,14 @@ object Http4sWebPlugin extends AutoPlugin {
     http4sWebAssetsDevTarget       := target.value / "h4w",
     http4sWebAssetsBaseDirName     := "public",
     http4sWebExcludeWebJarMappings := true,
+    http4sWebPackageAssets         := sys.props.get("idea.managed").isEmpty,
 
     packagePrefix in Assets := s"${http4sWebAssetsBaseDirName.value}/",
-    managedClasspath in Runtime += (packageBin in Assets).value,
 
-    internalDependencyClasspath in Runtime ++= Seq(http4sWebAssetsDevTarget.value),
-    internalDependencyClasspath in Runtime := (internalDependencyClasspath in Runtime).dependsOn(Def.task {
-      IO.copy((mappings in Assets).value.map {
-        case (f, p) ⇒ f -> (http4sWebAssetsDevTarget.value / http4sWebAssetsBaseDirName.value / p)
-      })
-    }).value,
+    managedClasspath in Runtime ++= packageAssets.value,
+
+    internalDependencyClasspath in Runtime += http4sWebAssetsDevTarget.value,
+    internalDependencyClasspath in Runtime := (internalDependencyClasspath in Runtime).dependsOn(copyAssets).value,
 
     mappings in (Compile, packageBin) := (mappings in (Compile, packageBin)).value.filterNot {
       case (_, dest) ⇒ http4sWebExcludeWebJarMappings.value && dest.contains(WEBJARS_PATH_PREFIX)
@@ -40,12 +38,14 @@ object Http4sWebPlugin extends AutoPlugin {
 
   )
 
-}
+  private lazy val copyAssets = Def.task[Unit] {
+    IO.copy((mappings in Assets).value.map {
+      case (f, p) ⇒ f -> (http4sWebAssetsDevTarget.value / http4sWebAssetsBaseDirName.value / p)
+    })
+  }
 
-object Http4sWebKeys {
-
-  val http4sWebAssetsDevTarget       = settingKey[File]("Target directory for dev assets in runtime.")
-  val http4sWebAssetsBaseDirName     = settingKey[String]("Top-level directory under dev assets, e.g. 'public'.")
-  val http4sWebExcludeWebJarMappings = settingKey[Boolean]("Exclude webjar assets under 'META-INF/resources/webjars/' when packaging project jar.")
+  private lazy val packageAssets = Def.taskDyn[Def.Classpath] {
+    if (http4sWebPackageAssets.value) Def.task { Seq((packageBin in Assets).value).classpath } else Def.task { Nil }
+  }
 
 }
