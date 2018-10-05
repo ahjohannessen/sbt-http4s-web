@@ -18,7 +18,9 @@ object Http4sWebPlugin extends AutoPlugin {
 
   import autoImport._
 
-  override lazy val projectSettings: Seq[Setting[_]] = Seq(
+  override lazy val projectSettings: Seq[Setting[_]] = settings
+
+  lazy val settings: Seq[Setting[_]] = Seq(
 
     http4sWebAssetsDevTarget       := target.value / "h4w",
     http4sWebAssetsBaseDirName     := "public",
