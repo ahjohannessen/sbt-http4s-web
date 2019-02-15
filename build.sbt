@@ -1,15 +1,15 @@
 // Common settings
 
 sbtPlugin := true
-scalaVersion := "2.12.7"
+scalaVersion := "2.12.8"
 
 name := "sbt-http4s-web"
 description := "sbt-web for http4s"
 organization := "com.github.ahjohannessen"
-version := "0.0.5"
+version := "0.0.6"
 // Dependencies
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.3")
+addSbtPlugin("com.typesafe.sbt" % "sbt-web" % "1.4.4")
 
 // Publishing
 
