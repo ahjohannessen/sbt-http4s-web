@@ -9,7 +9,6 @@ The plugin does this by tweaking a project's `Runtime / managedClasspath`, `Runt
 and `Compile / packageBin / mappings`.
 
 ### Usage
-
 Add the following to your project's project/plugins.sbt:
 ```
 // replace x.y.z with value from version badge above.
